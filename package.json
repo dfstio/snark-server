@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "logs": "heroku logs --tail",
     "push": "git push heroku master",
-    "build": "yarn push && yarn logs",
+    "build1": "yarn push && yarn logs",
     "commit": "git commit -a -S -m",
     "addgithub": "git remote add github https://github.com/Benjamin-Herald/snark-server.git",
     "pushgithub": "git push -u github master",
