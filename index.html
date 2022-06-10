@@ -6,7 +6,7 @@
 <body>
 
   <h1>List SNARK proof generation in the browser</h1>
-  <button id="bGenProof"> Create Groth16 proof </button>
+  <button id="bGenGrothProof"> Create Groth16 proof </button>
   <button id="bGenPlonkProof"> Create PLONK proof </button>
 
   <!-- JS-generated output will be added here. -->
@@ -27,17 +27,17 @@ const resultComponent = document.getElementById('result');
 const timeComponent = document.getElementById('time');
 const bGenProof = document.getElementById("bGenProof");
 
-bGenProof.addEventListener("click", calculateProof);
+bGenGrothProof.addEventListener("click", calculateGrothProof);
 bGenPlonkProof.addEventListener("click", calculatePlonkProof);
 
-async function calculateProof() {
+async function calculateGrothProof() {
 
     const start = Date.now();
-    const input = await fetch("input.json").then( function(res) {
+    const input = await fetch("./groth16/input.json").then( function(res) {
         return res.json();
     });
 
-    const { proof, publicSignals } = await snarkjs.groth16.fullProve(input, "smtadd.wasm", "smtadd_0001.zkey");
+    const { proof, publicSignals } = await snarkjs.groth16.fullProve(input, "./groth16/smtadd.wasm", "./groth16/smtadd_0001.zkey");
       //await snarkjs.plonk.fullProve( {in: [0, 0]}, "zkeys/Hasher_2-1.test.wasm", "zkeys/Hasher_2-1.test.zkey");
 
     const end = Date.now();
@@ -47,7 +47,7 @@ async function calculateProof() {
 
     proofCompnent.innerHTML = JSON.stringify(proof, null, 1);
 
-    const vkey = await fetch("verification_key.json").then( function(res) {
+    const vkey = await fetch("./groth16/verification_key.json").then( function(res) {
         return res.json();
     });
 
