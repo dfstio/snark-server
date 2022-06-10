@@ -37,8 +37,7 @@ async function calculateGrothProof() {
         return res.json();
     });
 
-    const { proof, publicSignals } = await snarkjs.groth16.fullProve(input, "./groth16/smtadd.wasm", "./groth16/smtadd_0001.zkey");
-      //await snarkjs.plonk.fullProve( {in: [0, 0]}, "zkeys/Hasher_2-1.test.wasm", "zkeys/Hasher_2-1.test.zkey");
+    const { proof, publicSignals } = await snarkjs.groth16.fullProve(input, "./groth16/msmtadd.wasm", "./groth16/msmtadd.zkey");
 
     const end = Date.now();
     const timeTaken = ((end - start) / 1000).toString() + ' seconds';
