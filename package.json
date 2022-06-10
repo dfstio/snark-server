@@ -1,0 +1,26 @@
+{
+  "name": "snark-server",
+  "version": "3.0.0",
+  "description": "List SNARK proof website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "logs": "heroku logs --tail",
+    "push": "git push heroku master",
+    "build": "yarn push && yarn logs",
+    "commit": "git commit -a -S -m",
+    "addgithub": "git remote add github https://github.com/Benjamin-Herald/snark-server.git",
+    "pushgithub": "git push -u github master",
+    "local": "heroku local"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "circom": "^0.5.46",
+    "circomlib": "^2.0.3",
+    "http-server": "^14.1.1",
+    "shelljs": "^0.8.5",
+    "snarkjs": "^0.4.19",
+    "zkey-manager": "^0.1.2"
+  }
+}
