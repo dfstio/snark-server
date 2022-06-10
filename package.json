@@ -8,6 +8,7 @@
     "logs": "heroku logs --tail",
     "push": "git push heroku master",
     "build1": "yarn push && yarn logs",
+    "start": "npx http-server",
     "commit": "git commit -a -S -m",
     "addgithub": "git remote add github https://github.com/Benjamin-Herald/snark-server.git",
     "pushgithub": "git push -u github master",
