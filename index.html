@@ -33,11 +33,12 @@ bGenPlonkProof.addEventListener("click", calculatePlonkProof);
 
 async function calculateGrothProof() {
 
-    const start = Date.now();
+    timeComponent.innerHTML = "Generating Groth16 proof...";
     const input = await fetch("./groth16/input.json").then( function(res) {
         return res.json();
     });
 
+	const start = Date.now();
     const { proof, publicSignals } = await snarkjs.groth16.fullProve(input, "./groth16/msmtadd.wasm", "./groth16/msmtadd.zkey");
 
     const end = Date.now();
@@ -58,12 +59,12 @@ async function calculateGrothProof() {
 
 async function calculatePlonkProof() {
 
-    const start = Date.now();
-
+	timeComponent.innerHTML = "Generating PLONK proof...";
     const input = await fetch("./plonk/input.json").then( function(res) {
         return res.json();
     });
     
+    const start = Date.now();
     const { proof, publicSignals } = await snarkjs.plonk.fullProve(input, "./plonk/claim.wasm", "./plonk/pclaim.zkey");
       //await snarkjs.plonk.fullProve( {in: [0, 0]}, "zkeys/Hasher_2-1.test.wasm", "zkeys/Hasher_2-1.test.zkey");
 
