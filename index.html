@@ -10,6 +10,8 @@
   <button id="bGenPlonkProof"> Create PLONK proof </button>
 
   <!-- JS-generated output will be added here. -->
+  <pre class="message">  <code id="message"></code></pre>
+  
   <pre class="time"> Time taken: <code id="time"></code></pre>
 
   <pre class="proof"> Valid?: <code id="result"></code></pre>
@@ -25,6 +27,7 @@
 const proofCompnent = document.getElementById('proof');
 const resultComponent = document.getElementById('result');
 const timeComponent = document.getElementById('time');
+const messageComponent = document.getElementById('message');
 const bGenGrothProof = document.getElementById("bGenGrothProof");
 const bGenPlonkProof = document.getElementById("bGenPlonkProof");
 
@@ -33,7 +36,7 @@ bGenPlonkProof.addEventListener("click", calculatePlonkProof);
 
 async function calculateGrothProof() {
 
-    timeComponent.innerHTML = "Generating Groth16 proof...";
+    messageComponent.innerHTML = "Generating Groth16 proof...";
     const input = await fetch("./groth16/input.json").then( function(res) {
         return res.json();
     });
@@ -47,6 +50,8 @@ async function calculateGrothProof() {
     timeComponent.innerHTML = timeTaken;
 
     proofCompnent.innerHTML = JSON.stringify(proof, null, 1);
+    
+    messageComponent.innerHTML = "Verifying Groth16 proof...";
 
     const vkey = await fetch("./groth16/verification_key.json").then( function(res) {
         return res.json();
@@ -55,11 +60,12 @@ async function calculateGrothProof() {
     const res = await snarkjs.groth16.verify(vkey, publicSignals, proof);
 
     resultComponent.innerHTML = res;
+    messageComponent.innerHTML = "Done";
 }
 
 async function calculatePlonkProof() {
 
-	timeComponent.innerHTML = "Generating PLONK proof...";
+	messageComponent.innerHTML = "Generating PLONK proof...";
     const input = await fetch("./plonk/input.json").then( function(res) {
         return res.json();
     });
@@ -74,6 +80,8 @@ async function calculatePlonkProof() {
     timeComponent.innerHTML = timeTaken;
 
     proofCompnent.innerHTML = JSON.stringify(proof, null, 1);
+    
+    messageComponent.innerHTML = "Verifying PLONK proof...";
 
     const vkey = await fetch("./plonk/verification_keypc.json").then( function(res) {
         return res.json();
@@ -82,6 +90,7 @@ async function calculatePlonkProof() {
     const res = await snarkjs.plonk.verify(vkey, publicSignals, proof);
 
     resultComponent.innerHTML = res;
+    messageComponent.innerHTML = "Done";
 }
 
   </script>
